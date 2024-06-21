@@ -1,0 +1,6 @@
+@Restaurant_Management_HostAddress = https://localhost:7292
+
+GET {{Restaurant_Management_HostAddress}}/api/Restaurant/3
+Accept: application/json
+
+###
