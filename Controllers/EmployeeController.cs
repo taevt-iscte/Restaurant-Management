@@ -11,14 +11,14 @@ namespace Restaurant_Management.Controllers
     public class EmployeeController(IEmployeeRepository _employeeRepository, IRestaurantRepository _restaurantRepository, IMapper _mapper) : ControllerBase
     {
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Employee>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<EmployeeDto>))]
         public IActionResult GetEmployees()
         {
             return Ok(_mapper.Map<List<EmployeeDto>>(_employeeRepository.GetEmployees()));
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Employee))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EmployeeDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetEmployee(int id)
