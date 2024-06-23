@@ -14,7 +14,7 @@ namespace Restaurant_Management.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Employee>))]
         public IActionResult GetEmployees()
         {
-            return Ok(_mapper.Map<EmployeeDto>(_employeeRepository.GetEmployees()));
+            return Ok(_mapper.Map<List<EmployeeDto>>(_employeeRepository.GetEmployees()));
         }
 
         [HttpGet("{id}")]
@@ -46,7 +46,7 @@ namespace Restaurant_Management.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult CreateEmployee([FromQuery] int restaurantId, [FromBody] EmployeeDto employeeDto)

@@ -16,14 +16,14 @@ namespace Restaurant_Management.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Restaurant>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<RestaurantDto>))]
         public IActionResult GetRestaurants()
         {
             return Ok(_mapper.Map<List<RestaurantDto>>(_restaurantRepository.GetRestaurants()));
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Restaurant))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RestaurantDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetRestaurant(int id)
         {
@@ -36,7 +36,7 @@ namespace Restaurant_Management.Controllers
         }
 
         [HttpGet("{id}/employees")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Employee>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<EmployeeDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetRestaurantEmployees(int id)
@@ -50,7 +50,7 @@ namespace Restaurant_Management.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult CreateRestaurant([FromBody] RestaurantDto restDto)
         {
@@ -93,11 +93,11 @@ namespace Restaurant_Management.Controllers
                 ModelState.AddModelError("Internal", "Something went wrong saving");
                 return StatusCode(StatusCodes.Status500InternalServerError, ModelState);
             }
-            return Ok("Updated");
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteRestaurant(int id)
@@ -111,7 +111,7 @@ namespace Restaurant_Management.Controllers
                 ModelState.AddModelError("Internal", "Something went wrong while deleting");
                 return StatusCode(StatusCodes.Status500InternalServerError, ModelState);
             }
-            return Ok("Deleted");
+            return NoContent();
         }
     }
 }
